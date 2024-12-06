@@ -41,7 +41,7 @@ class ChuckNorrisJoke {
 
 // Add modal HTML dynamically
 function createModal(): void {
-    const modalHTML = `
+    let modalHTML = `
         <div class="modal">
             <div class="modal-background">
                 <div class="modal-image">
@@ -68,3 +68,4 @@ function createModal(): void {
         });
     }
 }
+

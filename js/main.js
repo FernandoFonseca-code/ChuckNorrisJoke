@@ -31,7 +31,7 @@ class ChuckNorrisJoke {
     }
 }
 function createModal() {
-    const modalHTML = `
+    let modalHTML = `
         <div class="modal">
             <div class="modal-background">
                 <div class="modal-image">

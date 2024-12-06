@@ -9,12 +9,52 @@
     </head>
     <body>
         <h1>Chuck Norris Jokes</h1>
+
         <div class="imageGroup">
             <div class="image-container">
                 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWV6NDRyOXI4b2Q5dmx4YTE4NzlwamFpcjU4ZTZ3aWdiYzl5YmdvNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7qZ3ZX1Gu3TZm/giphy.gif" alt="Chuck Norris looking at you">
                 <div class="speech-bubble">I don't tell jokes, I tell facts!</div>
             </div>
         </div>
-        <button id="getJokeButton" type="button">Get a joke</button>
+
+        <button id="getRandomJokeButton" type="button">Get a random joke</button>
+        
+        <H2>Chose a specific category</H2>
+        
+        <div id="jokeCategoryContainer">
+            <label for="jokeCategories">Select a joke category:</label>
+            <select id="jokeCategories" name="jokeCategories">
+                <option value="">--Please choose a category--</option>
+                <option value="animal">Animal</option>
+                <option value="career">Career</option>
+                <option value="celebrity">Celebrity</option>
+                <option value="dev">Developer</option>
+                <option value="explicit">Explicit</option>
+                <option value="fashion">Fashion</option>
+                <option value="food">Food</option>
+                <option value="history">History</option>
+                <option value="money">Money</option>
+                <option value="movie">Movie</option>
+                <option value="music">Music</option>
+                <option value="political">Political</option>
+                <option value="religion">Religion</option>
+                <option value="science">Science</option>
+                <option value="sport">Sport</option>
+                <option value="travel">Travel</option>
+            </select>
+        </div>
+        
     </body>
+    <footer>
+        <p>Created by <br>
+            <a href="https://github.com/FernandoFonseca-code" target="_blank" rel="noopener noreferrer">
+                Fernando Fonseca 2024
+            </a>
+        </p><br>
+        <p> This creation was not possible without the <br>
+            <a href="https://api.chucknorris.io/" target="_blank" rel="noopener noreferrer">
+                ChuckNorris.io API
+            </a>
+        </p>
+    </footer>
 </html>
