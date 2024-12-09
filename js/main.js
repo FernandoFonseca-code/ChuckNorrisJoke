@@ -1,34 +1,51 @@
 "use strict";
 window.onload = function () {
     createModal();
-    let getJokeButton = document.getElementById("getJokeButton");
+    let getJokeButton = document.getElementById("getRandomJokeButton");
     getJokeButton.onclick = getJoke;
+    let getCategoryJokeButton = document.getElementById("getCategoryJokeButton");
+    getCategoryJokeButton.onclick = getCategoryJoke;
 };
-function getJoke() {
-    let ChuckNorrisURL = "https://api.chucknorris.io/jokes/random";
-    fetch(ChuckNorrisURL)
-        .then(response => response.json())
-        .then(jsonData => {
-        let joke = new ChuckNorrisJoke(jsonData);
-        joke.displayInModal();
-    })
-        .catch(error => console.error('Error:', error));
-}
 class ChuckNorrisJoke {
     constructor(jokeData) {
         this.id = jokeData.id;
         this.value = jokeData.value;
     }
-    displayInModal() {
-        const modal = document.querySelector(".modal");
-        const modalContent = document.querySelector(".modal-content");
-        if (modalContent) {
-            modalContent.textContent = this.value;
+}
+class JokeModal {
+    constructor() {
+        this.modal = document.querySelector(".modal");
+        this.modalContent = document.querySelector(".modal-content");
+    }
+    display(joke) {
+        if (this.modalContent) {
+            this.modalContent.textContent = joke.value;
         }
-        if (modal) {
-            modal.style.display = "block";
+        if (this.modal) {
+            this.modal.style.display = "block";
         }
     }
+}
+function getJoke() {
+    let ChuckNorrisURL = "https://api.chucknorris.io/jokes/random";
+    let modal = new JokeModal();
+    fetch(ChuckNorrisURL)
+        .then(response => response.json())
+        .then((joke) => {
+        modal.display(joke);
+    })
+        .catch(error => console.error('Error:', error));
+}
+function getCategoryJoke() {
+    let category = document.getElementById("jokeCategories").value;
+    let ChuckNorrisURL = `https://api.chucknorris.io/jokes/random?category=${category}`;
+    let modal = new JokeModal();
+    fetch(ChuckNorrisURL)
+        .then(response => response.json())
+        .then((joke) => {
+        modal.display(joke);
+    })
+        .catch(error => console.error('Error:', error));
 }
 function createModal() {
     let modalHTML = `

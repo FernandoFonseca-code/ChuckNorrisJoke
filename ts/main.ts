@@ -1,42 +1,64 @@
 window.onload = function () {
     createModal();
-    let getJokeButton = document.getElementById("getJokeButton") as HTMLButtonElement;
+    let getJokeButton = document.getElementById("getRandomJokeButton") as HTMLButtonElement;
     getJokeButton.onclick = getJoke;
-}
 
-function getJoke() {
-    let ChuckNorrisURL = "https://api.chucknorris.io/jokes/random";
-
-    fetch(ChuckNorrisURL)
-        .then(response => response.json())
-        .then(jsonData => {
-            let joke = new ChuckNorrisJoke(jsonData);
-            joke.displayInModal();
-        })
-        .catch(error => console.error('Error:', error));
+    let getCategoryJokeButton = document.getElementById("getCategoryJokeButton") as HTMLButtonElement;
+    getCategoryJokeButton.onclick = getCategoryJoke;
 }
 
 class ChuckNorrisJoke {
     id: string;
     value: string;
-   // categories: string[];
 
     constructor(jokeData:any) {
         this.id = jokeData.id;
         this.value = jokeData.value;
-        //this.categories = jokeData.categories;
+    }
+}
+
+class JokeModal {
+    private modal: HTMLElement | null;
+    private modalContent: HTMLElement | null;
+
+    constructor() {
+        this.modal = document.querySelector(".modal");
+        this.modalContent = document.querySelector(".modal-content");
     }
 
-    displayInModal(): void {
-        const modal = document.querySelector(".modal") as HTMLElement;
-        const modalContent = document.querySelector(".modal-content") as HTMLElement;
-        if (modalContent) {
-            modalContent.textContent = this.value;
+    display(joke: ChuckNorrisJoke): void {
+        if (this.modalContent) {
+            this.modalContent.textContent = joke.value;
         }
-        if (modal) {
-            modal.style.display = "block";
+        if (this.modal) {
+            this.modal.style.display = "block";
         }
     }
+}
+
+function getJoke() {
+    let ChuckNorrisURL = "https://api.chucknorris.io/jokes/random";
+    let modal = new JokeModal();
+
+    fetch(ChuckNorrisURL)
+        .then(response => response.json())
+        .then((joke: ChuckNorrisJoke) => {
+            modal.display(joke);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function getCategoryJoke(): void {
+    let category = (document.getElementById("jokeCategories") as HTMLInputElement).value;
+    let ChuckNorrisURL = `https://api.chucknorris.io/jokes/random?category=${category}`;
+    let modal = new JokeModal();
+
+    fetch(ChuckNorrisURL)
+        .then(response => response.json())
+        .then((joke: ChuckNorrisJoke) => {
+            modal.display(joke);
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 // Add modal HTML dynamically
@@ -68,4 +90,3 @@ function createModal(): void {
         });
     }
 }
-

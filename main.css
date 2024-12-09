@@ -44,7 +44,7 @@ h1, h2 {
     border-right-color: white;
 }
 
-#getRandomJokeButton {
+#getRandomJokeButton, #getCategoryJokeButton {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
